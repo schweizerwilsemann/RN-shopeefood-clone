@@ -7,6 +7,7 @@ import FacebookLogo from '@/assets/auth/facebook.png'
 import GoogleLogo from '@/assets/auth/google.png'
 import { LinearGradient } from "expo-linear-gradient";
 import TextBetweenLine from "@/components/button/text.between.line";
+import { Link, Redirect } from "expo-router";
 
 const styles = StyleSheet.create({
     container: {
@@ -37,6 +38,11 @@ const styles = StyleSheet.create({
     },
 })
 const WelcomePage = () => {
+    if (true) {
+        return (
+            <Redirect href={"/(auth)/signup"} />
+        )
+    }
     return (
         <ImageBackground
             style={{ flex: 1 }}
@@ -54,15 +60,14 @@ const WelcomePage = () => {
                             Welcome to
                         </Text>
                         <Text style={styles.body}>
-                            @hoidanit - Food
+                            Terrible - Food
                         </Text>
                         <Text style={styles.footer}>
-                            Nền tảng giao đồ ăn trực tuyến hàng đầu Việt Nam
+                            Nền tảng giao đồ ăn trực tuyến đầu hàng Việt Nam
                         </Text>
                     </View>
 
                     <View style={styles.welcomeBtn}>
-
                         <TextBetweenLine title="Đăng nhập với" />
 
                         <View style={{
@@ -127,11 +132,13 @@ const WelcomePage = () => {
                             >
                                 Chưa có tài khoản?
                             </Text>
-                            <Text
-                                style={{ color: "white", textDecorationColor: "underline" }}
-                            >
-                                Đăng ký.
-                            </Text>
+                            <Link href={"/(auth)/signup"}>
+                                <Text
+                                    style={{ color: "white", textDecorationColor: "underline" }}
+                                >
+                                    Đăng ký.
+                                </Text>
+                            </Link>
                         </View>
                     </View>
                 </View>
