@@ -19,12 +19,12 @@ const styles = StyleSheet.create({
         marginVertical: 20
     }
 })
-const verify = () => {
+const VerifyPage = () => {
     const [isSubmit, setIsSubmit] = useState<boolean>(false);
     const [code, setCode] = useState<string>("");
     const otpRef = useRef<OTPTextView>(null);
 
-    const { email } = useLocalSearchParams()
+    const { email, isLogin } = useLocalSearchParams()
 
     const verifyCode = async () => {
         setIsSubmit(true);
@@ -40,7 +40,12 @@ const verify = () => {
                 backgroundColor: APP_COLOR.ORANGE,
                 opacity: 1
             });
-            router.replace("/(auth)/login")
+
+            if (isLogin) {
+                router.replace('/(tabs)')
+            }
+            else
+                router.replace("/(auth)/login")
         }
         else {
             Toast.show(res.message as string, {
@@ -112,4 +117,4 @@ const verify = () => {
     )
 }
 
-export default verify
+export default VerifyPage;

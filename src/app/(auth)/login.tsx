@@ -1,7 +1,7 @@
 import ShareButton from '@/components/button/share.button'
 import SocialButton from '@/components/button/social.button'
 import ShareInput from '@/components/input/share.input'
-import { registerAPI } from '@/utils/api'
+import { loginAPI, registerAPI } from '@/utils/api'
 import { APP_COLOR } from '@/utils/constant'
 import { Link, router } from 'expo-router'
 import React, { useState } from 'react'
@@ -34,9 +34,35 @@ const styles = StyleSheet.create({
 const LoginPage = () => {
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("");
+    const [loading, setLoading] = useState<boolean>(false);
 
-    const handleLogin = () => {
-        console.log(">>>> check infos: ", email, password);
+
+    const handleLogin = async () => {
+        try {
+            setLoading(true);
+            const res = await loginAPI(email, password);
+            setLoading(false);
+            if (res.data) {
+                router.replace("/(tabs)")
+            }
+            else {
+                const message = Array.isArray(res.message) ? res.message[0] : res.message;
+                Toast.show(message, {
+                    duration: Toast.durations.LONG,
+                    textColor: "white",
+                    backgroundColor: APP_COLOR.ORANGE,
+                    opacity: 1
+                })
+            }
+            if (res.statusCode === 400) {
+                router.replace({
+                    pathname: '/(auth)/verify',
+                    params: { email: email, isLogin: 1 }
+                });
+            }
+        } catch (error) {
+
+        }
     }
     return (
         <SafeAreaView style={{ flex: 1 }}>
@@ -66,6 +92,7 @@ const LoginPage = () => {
                 <View style={{ marginVertical: 10 }}></View>
                 <ShareButton
                     title="Đăng Nhập"
+                    loading={loading}
                     onPress={() => { handleLogin() }}
                     textStyle={{ color: "#fff", paddingVertical: 5 }}
                     btnStyle={{
