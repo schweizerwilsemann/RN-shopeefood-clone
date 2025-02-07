@@ -3,9 +3,9 @@ import SocialButton from '@/components/button/social.button'
 import ShareInput from '@/components/input/share.input'
 import { APP_COLOR } from '@/utils/constant'
 import axios from 'axios'
-import { Link } from 'expo-router'
-import React, { useEffect, useState } from 'react'
-import { StyleSheet, Text, TextInput, View } from 'react-native'
+import { Link, router } from 'expo-router'
+import React, { useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 
@@ -33,22 +33,22 @@ const styles = StyleSheet.create({
 const SignUpPage = () => {
     const URL_BACKEND = process.env.EXPO_PUBLIC_API_URL;
 
-    console.log(">>> check url back end: ", URL_BACKEND);
     const [name, setName] = useState<string>("")
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("");
 
-    useEffect(() => {
-        const fetchAPI = async () => {
-            try {
-                const res = await axios.get(URL_BACKEND!);
-                console.log(">>> check response: ", res.data);
-            } catch (error) {
-                console.log(">>> check error: ", error);
+    const handleSignup = async () => {
+        const url = `${process.env.EXPO_PUBLIC_API_URL}/api/v1/auth/register`;
+        try {
+            const res = await axios.post(url, { name, email, password });
+            if (res.data) {
+                router.navigate("/(auth)/verify")
             }
+            console.log(">>> check response: ", res.data);
+        } catch (error) {
+            console.log(">>> check error: ", error);
         }
-        fetchAPI();
-    }, [])
+    }
     return (
         <SafeAreaView style={{ flex: 1 }}>
             <View style={styles.container}>
@@ -82,7 +82,7 @@ const SignUpPage = () => {
                 <View style={{ marginVertical: 10 }}></View>
                 <ShareButton
                     title="Đăng Ký"
-                    onPress={() => { console.log(name, " ", email, " ", password); }}
+                    onPress={() => { handleSignup() }}
                     textStyle={{ color: "#fff", paddingVertical: 5 }}
                     btnStyle={{
                         textTransform: "uppercase",
