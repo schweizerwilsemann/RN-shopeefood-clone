@@ -7,6 +7,7 @@ import axios from 'axios'
 import { Link, router } from 'expo-router'
 import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
+import Toast from 'react-native-root-toast'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
 
@@ -46,7 +47,12 @@ const SignUpPage = () => {
                 router.navigate("/(auth)/verify")
             }
             else {
-                alert(res.message)
+                Toast.show(Array.isArray(res.message) ? res.message[0] : res.message, {
+                    duration: Toast.durations.LONG,
+                    textColor: "white",
+                    backgroundColor: APP_COLOR.ORANGE,
+                    opacity: 1
+                })
             }
             console.log(">>> check response: ", res.data);
         } catch (error) {
