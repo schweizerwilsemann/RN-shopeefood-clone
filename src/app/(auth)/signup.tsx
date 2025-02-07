@@ -44,7 +44,7 @@ const SignUpPage = () => {
             const res = await registerAPI(name, email, password);
             console.log(">>>> check response: ", res);
             if (res.data) {
-                router.navigate({
+                router.replace({
                     pathname: "/(auth)/verify",
                     params: { email: email }
                 })
