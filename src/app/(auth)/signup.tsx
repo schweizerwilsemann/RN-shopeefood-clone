@@ -3,7 +3,6 @@ import SocialButton from '@/components/button/social.button'
 import ShareInput from '@/components/input/share.input'
 import { registerAPI } from '@/utils/api'
 import { APP_COLOR } from '@/utils/constant'
-import axios from 'axios'
 import { Link, router } from 'expo-router'
 import React, { useState } from 'react'
 import { StyleSheet, Text, View } from 'react-native'
@@ -42,9 +41,13 @@ const SignUpPage = () => {
     const handleSignup = async () => {
 
         try {
-            const res = await registerAPI(email, password, name);
+            const res = await registerAPI(name, email, password);
+            console.log(">>>> check response: ", res);
             if (res.data) {
-                router.navigate("/(auth)/verify")
+                router.navigate({
+                    pathname: "/(auth)/verify",
+                    params: { email: email }
+                })
             }
             else {
                 Toast.show(Array.isArray(res.message) ? res.message[0] : res.message, {

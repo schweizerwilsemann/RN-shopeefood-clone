@@ -1,7 +1,6 @@
 import { Text, View, StyleSheet, ImageBackground, Image } from "react-native"
 import ShareButton from "components/button/share.button";
 import { APP_COLOR } from "utils/constant";
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import Background from '@/assets/auth/welcome-background.png'
 import FacebookLogo from '@/assets/auth/facebook.png'
 import GoogleLogo from '@/assets/auth/google.png'
@@ -40,7 +39,7 @@ const styles = StyleSheet.create({
 const WelcomePage = () => {
     if (true) {
         return (
-            <Redirect href={"/(auth)/verify"} />
+            <Redirect href={"/(auth)/signup"} />
         )
     }
     return (
