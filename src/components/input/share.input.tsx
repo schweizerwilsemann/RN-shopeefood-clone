@@ -34,12 +34,15 @@ interface Iprops {
     keyboardType?: KeyboardTypeOptions;
     secureTextEntry?: boolean;
     value: any;
-    setValue: (v: any) => void;
+    setValue?: (v: any) => void;
+    onChangeText?: any;
+    onBlur?: any;
+    error?: any;
 }
 const ShareInput = (props: Iprops) => {
     const [isFocus, setIsFocus] = useState<boolean>(false);
     const [isShowPassword, setIsShowPassword] = useState<boolean>(false)
-    const { title, keyboardType, secureTextEntry = false, value, setValue } = props;
+    const { title, keyboardType, secureTextEntry = false, value, setValue, onChangeText, onBlur, error } = props;
     return (
         <View style={styles.inputGroup}>
             {
@@ -51,9 +54,12 @@ const ShareInput = (props: Iprops) => {
             <View>
                 <TextInput
                     value={value}
-                    onChangeText={(text) => setValue(text)}
+                    onChangeText={onChangeText}
                     onFocus={() => { setIsFocus(true) }}
-                    onBlur={() => { setIsFocus(false) }}
+                    onBlur={(e) => {
+                        setIsFocus(false);
+                        if (onBlur) onBlur(e);
+                    }}
                     style={[
                         styles.input,
                         { borderColor: isFocus ? APP_COLOR.ORANGE : APP_COLOR.GRAY }
@@ -61,6 +67,9 @@ const ShareInput = (props: Iprops) => {
                     keyboardType={keyboardType}
                     secureTextEntry={secureTextEntry && !isShowPassword}
                 />
+                {
+                    error && <Text style={{ color: "red", marginTop: 5 }}>{error}</Text>
+                }
                 {
                     secureTextEntry &&
                     <FontAwesome5
