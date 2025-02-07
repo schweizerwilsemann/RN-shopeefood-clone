@@ -1,12 +1,108 @@
-import { View, Text } from "react-native"
+import ShareButton from '@/components/button/share.button'
+import SocialButton from '@/components/button/social.button'
+import ShareInput from '@/components/input/share.input'
+import { registerAPI } from '@/utils/api'
+import { APP_COLOR } from '@/utils/constant'
+import { Link, router } from 'expo-router'
+import React, { useState } from 'react'
+import { StyleSheet, Text, View } from 'react-native'
+import Toast from 'react-native-root-toast'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 
-const Login = () => {
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        marginHorizontal: 20,
+        gap: 10
+    },
+    inputGroup: {
+        padding: 5,
+        gap: 10
+    },
+    text: {
+        fontSize: 18
+    },
+    input: {
+        borderColor: "#d0d0d0",
+        borderWidth: 1,
+        paddingHorizontal: 7,
+        paddingVertical: 10,
+        borderRadius: 5
+    },
+})
+const LoginPage = () => {
+    const [email, setEmail] = useState<string>("")
+    const [password, setPassword] = useState<string>("");
+
+    const handleLogin = () => {
+        console.log(">>>> check infos: ", email, password);
+    }
     return (
-        <View>
-            <Text>hello login</Text>
-        </View>
+        <SafeAreaView style={{ flex: 1 }}>
+            <View style={styles.container}>
+                <View>
+                    <Text style={{
+                        fontWeight: "600",
+                        fontSize: 25,
+                        marginVertical: 30
+                    }}
+                    >
+                        Đăng nhập
+                    </Text>
+                </View>
+                <ShareInput
+                    title='Email'
+                    keyboardType='email-address'
+                    value={email}
+                    setValue={setEmail}
+                />
+                <ShareInput
+                    title='Password'
+                    secureTextEntry={true}
+                    value={password}
+                    setValue={setPassword}
+                />
+                <View style={{ marginVertical: 10 }}></View>
+                <ShareButton
+                    title="Đăng Nhập"
+                    onPress={() => { handleLogin() }}
+                    textStyle={{ color: "#fff", paddingVertical: 5 }}
+                    btnStyle={{
+                        textTransform: "uppercase",
+                        justifyContent: "center",
+                        borderRadius: 30,
+                        marginHorizontal: 50,
+                        paddingVertical: 10,
+                        backgroundColor: APP_COLOR.ORANGE,
+                        borderColor: "#505050",
+                        borderWidth: 1
+                    }}
+                    pressStyle={{ alignSelf: "stretch" }}
+                />
+                <View style={{
+                    marginVertical: 15,
+                    flexDirection: "row",
+                    gap: 10,
+                    justifyContent: "center"
+                }}>
+                    <Text
+                        style={{ color: "black" }}
+                    >
+                        Chưa có tài khoản?
+                    </Text>
+                    <Link href={"/(auth)/signup"}>
+                        <Text
+                            style={{ color: "black", textDecorationLine: "underline" }}
+                        >
+                            Đăng ký.
+                        </Text>
+                    </Link>
+                </View>
+                <SocialButton title={`Đăng ký với`} />
+            </View>
+        </SafeAreaView>
     )
 }
 
-export default Login;
+export default LoginPage

@@ -81,7 +81,7 @@ const SignUpPage = () => {
                     setValue={setName}
                 />
                 <ShareInput
-                    title='email'
+                    title='Email'
                     keyboardType='email-address'
                     value={email}
                     setValue={setEmail}
@@ -120,15 +120,15 @@ const SignUpPage = () => {
                     >
                         Đã có tài khoản?
                     </Text>
-                    <Link href={"/(auth)/signup"}>
+                    <Link href={"/(auth)/login"}>
                         <Text
-                            style={{ color: "black", textDecorationColor: "underline" }}
+                            style={{ color: "black", textDecorationLine: "underline" }}
                         >
                             Đăng nhập.
                         </Text>
                     </Link>
                 </View>
-                <SocialButton />
+                <SocialButton title='Đăng nhập với' />
             </View>
         </SafeAreaView>
     )

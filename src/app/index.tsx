@@ -6,7 +6,7 @@ import FacebookLogo from '@/assets/auth/facebook.png'
 import GoogleLogo from '@/assets/auth/google.png'
 import { LinearGradient } from "expo-linear-gradient";
 import TextBetweenLine from "@/components/button/text.between.line";
-import { Link, Redirect } from "expo-router";
+import { Link, Redirect, router } from "expo-router";
 
 const styles = StyleSheet.create({
     container: {
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
 const WelcomePage = () => {
     // if (true) {
     //     return (
-    //         <Redirect href={"/(auth)/signup"} />
+    //         <Redirect href={"/(auth)/login"} />
     //     )
     // }
     return (
@@ -107,7 +107,7 @@ const WelcomePage = () => {
                         <View>
                             <ShareButton
                                 title="Đăng nhập với email"
-                                onPress={() => { alert("me") }}
+                                onPress={() => { router.navigate("/(auth)/login") }}
                                 textStyle={{ color: "#fff", paddingVertical: 5 }}
                                 btnStyle={{
                                     justifyContent: "center",
@@ -133,7 +133,7 @@ const WelcomePage = () => {
                             </Text>
                             <Link href={"/(auth)/signup"}>
                                 <Text
-                                    style={{ color: "white", textDecorationColor: "underline" }}
+                                    style={{ color: "white", textDecorationLine: "underline" }}
                                 >
                                     Đăng ký.
                                 </Text>
