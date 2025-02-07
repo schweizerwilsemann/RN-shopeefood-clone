@@ -45,6 +45,9 @@ const SignUpPage = () => {
             if (res.data) {
                 router.navigate("/(auth)/verify")
             }
+            else {
+                alert(res.message)
+            }
             console.log(">>> check response: ", res.data);
         } catch (error) {
             console.log(">>> check error: ", error);
