@@ -11,17 +11,17 @@ const data = Array(10).fill(1);
 
 const HomeTab = () => {
     return (
-        <SafeAreaView style={styles.container}>
-            <CustomFlatList
-                data={data}
-                style={styles.list}
-                renderItem={() => <View style={styles.item} />}
-                HeaderComponent={<HomeHeader />}
-                StickyElementComponent={<SearchHomePage />}
-                // TopListElementComponent={<View style={styles.topList} />}
-                TopListElementComponent={<TopListHome />}
-            />
-        </SafeAreaView>
+
+        <CustomFlatList
+            data={data}
+            style={styles.list}
+            renderItem={() => <View style={styles.item} />}
+            HeaderComponent={<HomeHeader />}
+            StickyElementComponent={<SearchHomePage />}
+            // TopListElementComponent={<View style={styles.topList} />}
+            TopListElementComponent={<TopListHome />}
+        />
+
     );
 }
 
