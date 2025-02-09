@@ -1,9 +1,11 @@
 import ShareButton from "@/components/button/share.button"
 import SocialButton from "@/components/button/social.button"
 import ShareInput from "@/components/input/share.input"
+import { useCurrentApp } from "@/context/app.context"
 import { loginAPI } from "@/utils/api"
 import { APP_COLOR } from "@/utils/constant"
 import { LoginSchema } from "@/utils/validate.schema"
+import AsyncStorage from "@react-native-async-storage/async-storage"
 import { Link, router } from "expo-router"
 import { Formik } from "formik"
 import { useState } from "react"
@@ -21,6 +23,7 @@ const styles = StyleSheet.create({
 
 const LoginPage = () => {
     const [loading, setLoading] = useState<boolean>(false);
+    const { setAppState } = useCurrentApp();
 
     const handleLogin = async (email: string, password: string) => {
         try {
@@ -28,6 +31,8 @@ const LoginPage = () => {
             const res = await loginAPI(email, password);
             setLoading(false)
             if (res.data) {
+                setAppState(res.data);
+                await AsyncStorage.setItem("access_token", res.data.access_token);
                 router.replace("/(tabs)");
             } else {
                 const m = Array.isArray(res.message)

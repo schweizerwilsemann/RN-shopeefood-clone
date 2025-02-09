@@ -81,9 +81,9 @@ const TabLayout = () => {
                 }}
             />
             <Tabs.Screen
-                name="account"
+                name="order"
                 options={{
-                    title: "Tôi"
+                    title: "Đơn hàng"
                 }}
             />
             <Tabs.Screen
@@ -98,10 +98,11 @@ const TabLayout = () => {
                     title: "Thông Báo"
                 }}
             />
+
             <Tabs.Screen
-                name="order"
+                name="account"
                 options={{
-                    title: "Đơn hàng"
+                    title: "Tôi"
                 }}
             />
         </Tabs>

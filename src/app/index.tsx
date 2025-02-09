@@ -7,6 +7,10 @@ import GoogleLogo from '@/assets/auth/google.png'
 import { LinearGradient } from "expo-linear-gradient";
 import TextBetweenLine from "@/components/button/text.between.line";
 import { Link, Redirect, router } from "expo-router";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useEffect } from "react";
+import { getAccountAPI } from "@/utils/api";
+import { useCurrentApp } from "@/context/app.context";
 
 const styles = StyleSheet.create({
     container: {
@@ -37,11 +41,26 @@ const styles = StyleSheet.create({
     },
 })
 const WelcomePage = () => {
-    if (true) {
-        return (
-            <Redirect href={"/(tabs)"} />
-        )
-    }
+    // if (true) {
+    //     return (
+    //         <Redirect href={"/(tabs)"} />
+    //     )
+    // }
+    const { setAppState } = useCurrentApp();
+    useEffect(() => {
+        const fetchACcount = async () => {
+            const res = await getAccountAPI();
+            console.log(">>>> check res: ", res);
+            if (res.data) {
+                setAppState({
+                    user: res.data.user,
+                })
+                router.replace("/(tabs)")
+            }
+        }
+        fetchACcount();
+    }, [])
+
     return (
         <ImageBackground
             style={{ flex: 1 }}
