@@ -1,11 +1,11 @@
 import { Text, View } from "react-native"
 
-const SettingTab = () => {
+const AccountTab = () => {
     return (
         <View>
-            <Text> SettingTab page</Text>
+            <Text> AccountTab page</Text>
         </View>
     )
 }
 
-export default SettingTab;
+export default AccountTab;
